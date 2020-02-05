@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WTWApp</string>
+    <string name="login_string">Логин</string>
+    <string name="password_string">Пароль</string>
+    <string name="what_to_string">What to</string>
+    <string name="watch_string">Watch?</string>
+    <string name="login_btn_string">Войти</string>
+    <string name="no_acc_string">Нет аккаунта?</string>
+    <string name="reg_call_btn_string">Зарегистрируйся</string>
 </resources>
