@@ -7,4 +7,6 @@
     <string name="login_btn_string">Войти</string>
     <string name="no_acc_string">Нет аккаунта?</string>
     <string name="reg_call_btn_string">Зарегистрируйся</string>
+    <string name="app_logo_description">App logo</string>
+    <string name="profile_icon_string">Profile icon</string>
 </resources>

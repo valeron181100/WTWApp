@@ -99,7 +99,7 @@
             android:background="@drawable/circle"
             android:padding="6dp"
             android:src="@drawable/key_dark" />
-        <EditText
+        <EditText android:id="@+id/passwordET"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

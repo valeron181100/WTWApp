@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
+        android:contentDescription="@string/app_logo_description"
         app:srcCompat="@drawable/ic_logo_img" />
 
     <LinearLayout
@@ -35,14 +35,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_light"
-            android:text="What to"
+            android:text="@string/what_to_string"
             android:textColor="@color/White"
             android:textSize="40sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_black"
-            android:text="Watch?"
+            android:text="@string/watch_string"
             android:textColor="@color/White"
             android:textSize="40sp" />
     </LinearLayout>
@@ -51,7 +51,7 @@
         android:id="@+id/loginEditLayout"
         android:layout_width="300dp"
         android:layout_height="42dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="700dp"
         android:background="@drawable/edit_text_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,6 +65,7 @@
             android:layout_gravity="center"
             android:alpha="0.7"
             android:layout_marginStart="7dp"
+            android:contentDescription="@string/profile_icon_string"
             android:src="@drawable/profile_icon_dark" />
 
         <EditText
@@ -74,6 +75,7 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/login_string"
+            android:inputType="textPersonName"
             android:textColor="@color/White"
             android:textColorHint="@color/Gray" />
     </LinearLayout>
@@ -98,13 +100,14 @@
             android:background="@drawable/circle"
             android:padding="6dp"
             android:src="@drawable/key_dark" />
-        <EditText
+        <EditText android:id="@+id/passwordET"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/password_string"
+            android:inputType="textPassword"
             android:textColor="@color/White"
             android:textColorHint="@color/Gray" />
     </LinearLayout>
