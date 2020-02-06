@@ -8,6 +8,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.method.PasswordTransformationMethod;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
@@ -17,6 +18,9 @@ import android.view.animation.AnticipateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.valeron.wtwapp.network.HttpRequestSender;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,11 +30,13 @@ public class SplashActivity extends AppCompatActivity {
     ImageView logoIV;
     ConstraintLayout mainCL;
     EditText mPasswordET;
+    Handler mResponseHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        mResponseHandler = new Handler();
         logoIV = findViewById(R.id.logoIV);
         mainCL = findViewById(R.id.splashConstraintLayout);
         mPasswordET = findViewById(R.id.passwordET);
@@ -83,11 +89,10 @@ public class SplashActivity extends AppCompatActivity {
                         });
                         TransitionManager.beginDelayedTransition(mainCL, transition);
 
+
                     }
                 });
             }
         }, 500);
-
-
     }
 }
