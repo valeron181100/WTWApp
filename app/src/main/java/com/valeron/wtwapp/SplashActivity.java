@@ -7,15 +7,20 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.method.PasswordTransformationMethod;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionManager;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnticipateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,21 +31,27 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
-
+    public static final String TAG = SplashActivity.class.getSimpleName();
     ImageView logoIV;
     ConstraintLayout mainCL;
     EditText mPasswordET;
+    EditText mLoginET;
     Handler mResponseHandler;
+    Button mLoginButton;
+    HttpRequestSender mRequestSender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         mResponseHandler = new Handler();
+        mRequestSender = new HttpRequestSender(SplashActivity.this, mResponseHandler);
+        mRequestSender.start();
         logoIV = findViewById(R.id.logoIV);
         mainCL = findViewById(R.id.splashConstraintLayout);
+        mLoginButton = findViewById(R.id.loginButton);
         mPasswordET = findViewById(R.id.passwordET);
         mPasswordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        mLoginET = findViewById(R.id.loginET);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {

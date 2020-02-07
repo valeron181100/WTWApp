@@ -68,7 +68,7 @@
             android:contentDescription="@string/profile_icon_string"
             android:src="@drawable/profile_icon_dark" />
 
-        <EditText
+        <EditText android:id="@+id/loginET"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -113,7 +113,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginButton"
         android:layout_width="230dp"
         android:layout_marginTop="900dp"
         android:layout_height="wrap_content"
