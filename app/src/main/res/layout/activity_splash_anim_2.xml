@@ -68,7 +68,7 @@
         android:layout_height="100dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         app:srcCompat="@drawable/ic_signup_light"
         android:text="Зарегистрироваться"
         app:layout_constraintBottom_toBottomOf="parent"

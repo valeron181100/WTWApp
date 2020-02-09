@@ -99,7 +99,13 @@ public class SwipeButton extends RelativeLayout {
 
         String drawableValue = attrs.getAttributeValue("http://schemas.android.com/apk/res-auto", "srcCompat");
 
-        disabledDrawable = ContextCompat.getDrawable(getContext(), Integer.parseInt(drawableValue.replace("@", "")));
+        if(isInEditMode()){
+            disabledDrawable = ContextCompat.getDrawable(getContext(), getResources().getIdentifier(drawableValue.split("/")[1], "drawable", MainActivity.class.getPackage().getName()));
+        }
+        else{
+            disabledDrawable = ContextCompat.getDrawable(getContext(), Integer.parseInt(drawableValue.replace("@", "")));
+        }
+
         enabledDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_done);
 
         slidingButton.setImageDrawable(disabledDrawable);

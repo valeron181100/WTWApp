@@ -26,16 +26,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
-
+    public static final String TAG = SplashActivity.class.getSimpleName();
     ImageView logoIV;
     ConstraintLayout mainCL;
+    EditText mPasswordET;
     Handler mResponseHandler;
+    HttpRequestSender mRequestSender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
         mResponseHandler = new Handler();
+        mRequestSender = new HttpRequestSender(SplashActivity.this, mResponseHandler);
+        mRequestSender.start();
         logoIV = findViewById(R.id.logoIV);
         mainCL = findViewById(R.id.splashConstraintLayout);
 
