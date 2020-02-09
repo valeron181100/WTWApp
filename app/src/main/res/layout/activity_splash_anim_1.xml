@@ -47,122 +47,32 @@
             android:textSize="40sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/loginEditLayout"
-        android:layout_width="300dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="700dp"
-        android:background="@drawable/edit_text_bg"
+    <com.valeron.wtwapp.views.SwipeButton
+        android:id="@+id/loginSwipeButton"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="800dp"
+        android:text="Войти"
+        app:srcCompat="@drawable/ic_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="@+id/logoIV">
+        app:layout_constraintTop_toTopOf="@+id/logoIV"/>
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:alpha="0.7"
-            android:layout_marginStart="7dp"
-            android:contentDescription="@string/profile_icon_string"
-            android:src="@drawable/profile_icon_dark" />
+    <com.valeron.wtwapp.views.SwipeButton
+        android:id="@+id/regSwipeButton"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/login_string"
-            android:inputType="textPersonName"
-            android:textColor="@color/White"
-            android:textColorHint="@color/Gray" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="300dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="750dp"
-        android:background="@drawable/edit_text_bg"
-        android:orientation="horizontal"
+        app:srcCompat="@drawable/ic_signup_light"
+        android:text="Зарегистрироваться"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoIV">
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="7dp"
-            android:alpha="0.7"
-            android:background="@drawable/circle"
-            android:padding="6dp"
-            android:src="@drawable/key_dark" />
-        <EditText android:id="@+id/passwordET"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/password_string"
-            android:inputType="textPassword"
-            android:textColor="@color/White"
-            android:textColorHint="@color/Gray" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="@+id/loginSwipeButton" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="230dp"
-        android:layout_marginTop="900dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/login_btn_bg"
-        android:fontFamily="@font/roboto_thin"
-        android:text="@string/login_btn_string"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEditLayout" />
-
-    <LinearLayout
-        android:id="@+id/regCallLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="1055dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_thin"
-            android:text="@string/no_acc_string"
-            android:textColor="@color/White"
-            android:textSize="12sp" />
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="17dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="5dp"
-            android:background="@drawable/login_btn_bg"
-            android:backgroundTint="@color/btnRegColor"
-            android:fontFamily="@font/roboto_thin"
-            android:text="@string/reg_call_btn_string"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/White"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginEditLayout" />
-
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

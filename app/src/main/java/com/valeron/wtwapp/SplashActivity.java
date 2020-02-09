@@ -29,7 +29,6 @@ public class SplashActivity extends AppCompatActivity {
 
     ImageView logoIV;
     ConstraintLayout mainCL;
-    EditText mPasswordET;
     Handler mResponseHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +38,6 @@ public class SplashActivity extends AppCompatActivity {
         mResponseHandler = new Handler();
         logoIV = findViewById(R.id.logoIV);
         mainCL = findViewById(R.id.splashConstraintLayout);
-        mPasswordET = findViewById(R.id.passwordET);
-        mPasswordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
