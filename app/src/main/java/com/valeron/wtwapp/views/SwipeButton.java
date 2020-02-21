@@ -86,7 +86,14 @@ public class SwipeButton extends RelativeLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-        centerText.setText(attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "text")); //can be changed
+        String textAttrValue = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "text");
+        int textId;
+        if(isInEditMode()){
+            textId = getResources().getIdentifier(textAttrValue.split("/")[1], "string", MainActivity.class.getPackage().getName());
+        }else{
+            textId = Integer.parseInt(textAttrValue.replace("@", ""));
+        }
+        centerText.setText(textId); //can be changed
         centerText.setTextColor(Color.WHITE);
         centerText.setPadding(35, 35, 35, 35);
         background.addView(centerText, layoutParams);
@@ -221,7 +228,7 @@ public class SwipeButton extends RelativeLayout {
         }
     }
 
-    private void addOnSwipedListener(OnSwipedListener listener){
+    public void addOnSwipedListener(OnSwipedListener listener){
         mListeners.add(listener);
     }
 
@@ -279,7 +286,7 @@ public class SwipeButton extends RelativeLayout {
         animatorSet.start();
     }
 
-    interface OnSwipedListener{
+    public interface OnSwipedListener{
         void swiped();
     }
 }

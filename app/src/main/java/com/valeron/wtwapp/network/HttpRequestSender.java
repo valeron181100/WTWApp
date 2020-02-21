@@ -89,10 +89,14 @@ public class HttpRequestSender extends HandlerThread {
             mResponseHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    ArrayList<HttpRequest> delRequests = new ArrayList<>();
                     for(HttpRequest request : mEventList){
-                        if(request.url.equals(url))
+                        if(request.url.equals(url)) {
                             request.event.ready(null, new IOException("Network is unavailable"));
+                            delRequests.add(request);
+                        }
                     }
+                    mEventList.removeAll(delRequests);
                 }
             });
             return;
@@ -106,10 +110,14 @@ public class HttpRequestSender extends HandlerThread {
             mResponseHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    ArrayList<HttpRequest> delRequests = new ArrayList<>();
                     for(HttpRequest request : mEventList){
-                        if(request.url.equals(url))
+                        if(request.url.equals(url)) {
                             request.event.ready(responseStr, null);
+                            delRequests.add(request);
+                        }
                     }
+                    mEventList.removeAll(delRequests);
                 }
             });
         }
@@ -126,10 +134,14 @@ public class HttpRequestSender extends HandlerThread {
             mResponseHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    ArrayList<HttpRequest> delRequests = new ArrayList<>();
                     for(HttpRequest request : mEventList){
-                        if(request.url.equals(url))
+                        if(request.url.equals(url)) {
                             request.event.ready(null, new IOException("Network is unavailable"));
+                            delRequests.add(request);
+                        }
                     }
+                    mEventList.removeAll(delRequests);
                 }
             });
             return;
@@ -156,10 +168,14 @@ public class HttpRequestSender extends HandlerThread {
             mResponseHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    ArrayList<HttpRequest> delRequests = new ArrayList<>();
                     for(HttpRequest request : mEventList){
-                        if(request.url.equals(url))
+                        if(request.url.equals(url)) {
                             request.event.ready(responseStr, null);
+                            delRequests.add(request);
+                        }
                     }
+                    mEventList.removeAll(delRequests);
                 }
             });
         }

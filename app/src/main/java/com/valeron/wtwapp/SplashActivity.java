@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.valeron.wtwapp.network.HttpRequestSender;
+import com.valeron.wtwapp.network.api.UserAuthenticator;
+import com.valeron.wtwapp.views.SwipeButton;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,9 +31,11 @@ public class SplashActivity extends AppCompatActivity {
     public static final String TAG = SplashActivity.class.getSimpleName();
     ImageView logoIV;
     ConstraintLayout mainCL;
-    EditText mPasswordET;
+    SwipeButton mLoginButton;
+    SwipeButton mRegButton;
     Handler mResponseHandler;
     HttpRequestSender mRequestSender;
+    UserAuthenticator mAuthenticator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,9 @@ public class SplashActivity extends AppCompatActivity {
         mResponseHandler = new Handler();
         mRequestSender = new HttpRequestSender(SplashActivity.this, mResponseHandler);
         mRequestSender.start();
+        mAuthenticator = UserAuthenticator.getInstance(this, mRequestSender);
+        mLoginButton = findViewById(R.id.loginSwipeButton);
+        mRegButton = findViewById(R.id.regSwipeButton);
         logoIV = findViewById(R.id.logoIV);
         mainCL = findViewById(R.id.splashConstraintLayout);
 
@@ -89,11 +96,18 @@ public class SplashActivity extends AppCompatActivity {
                             }
                         });
                         TransitionManager.beginDelayedTransition(mainCL, transition);
-
-
                     }
                 });
             }
         }, 500);
+
+        mLoginButton.addOnSwipedListener(new SwipeButton.OnSwipedListener() {
+            @Override
+            public void swiped() {
+                mAuthenticator.sendAuthRequestAsync();
+            }
+        });
+
+
     }
 }
