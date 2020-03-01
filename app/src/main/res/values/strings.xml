@@ -13,4 +13,11 @@
     <string name="log_string">Войти</string>
     <string name="check_string">Проверить</string>
     <string name="check_auth_string">Вы уже авторизировались? Теперь нажмите на кнопку ниже.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="popular_string">Популярное</string>
+    <string name="rec_string">Рекомендации</string>
+    <string name="profile_string">Профиль</string>
+    <string name="in_cinema_string">В кинотеатрах</string>
 </resources>

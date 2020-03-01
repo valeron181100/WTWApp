@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,7 +38,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class HttpRequestSender extends HandlerThread {
+public class HttpRequestSender extends HandlerThread implements Serializable {
     private static final String NAME = "HttpRequestSender";
     private static final int MESSAGE_DOWNLOAD_GET = 101;
     private static final int MESSAGE_DOWNLOAD_POST = 102;
@@ -106,14 +107,14 @@ public class HttpRequestSender extends HandlerThread {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            final String responseStr = response.body().string();
+            final byte[] responseStream = response.body().bytes();
             mResponseHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     ArrayList<HttpRequest> delRequests = new ArrayList<>();
                     for(HttpRequest request : mEventList){
                         if(request.url.equals(url)) {
-                            request.event.ready(responseStr, null);
+                            request.event.ready(responseStream, null);
                             delRequests.add(request);
                         }
                     }
@@ -164,14 +165,14 @@ public class HttpRequestSender extends HandlerThread {
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            final String responseStr = response.body().string();
+            final byte[] responseStream = response.body().bytes();
             mResponseHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     ArrayList<HttpRequest> delRequests = new ArrayList<>();
                     for(HttpRequest request : mEventList){
                         if(request.url.equals(url)) {
-                            request.event.ready(responseStr, null);
+                            request.event.ready(responseStream, null);
                             delRequests.add(request);
                         }
                     }
@@ -194,7 +195,7 @@ public class HttpRequestSender extends HandlerThread {
     }
 
     public interface OnRequestReadyEvent{
-        void ready(String response, Exception e);
+        void ready(byte[] stream, Exception e);
     }
 
     private static class HttpRequestHandler extends Handler{

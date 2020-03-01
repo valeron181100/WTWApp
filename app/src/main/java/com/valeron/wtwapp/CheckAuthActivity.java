@@ -2,12 +2,14 @@ package com.valeron.wtwapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
 import com.valeron.wtwapp.network.HttpRequestSender;
+import com.valeron.wtwapp.network.api.MovieBank;
 import com.valeron.wtwapp.network.api.UserAuthenticator;
 
 public class CheckAuthActivity extends AppCompatActivity {
@@ -31,8 +33,19 @@ public class CheckAuthActivity extends AppCompatActivity {
         mCheckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isLoggedIn = mAuthenticator.checkAuthAsync();
-                int k = 0;
+                mAuthenticator.checkAuthAsync().setOnLoggedListener(new UserAuthenticator.OnLogged() {
+                    @Override
+                    public void logged() {
+                        MovieBank.getInstance(CheckAuthActivity.this, CheckAuthActivity.this.mRequestSender).setOnTheaterMoviesLoaded(new MovieBank.onTheaterMoviesLoaded() {
+                            @Override
+                            public void loaded() {
+                                Intent intent = new Intent(CheckAuthActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
+
             }
         });
     }

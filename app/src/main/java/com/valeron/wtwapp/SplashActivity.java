@@ -50,6 +50,8 @@ public class SplashActivity extends AppCompatActivity {
         logoIV = findViewById(R.id.logoIV);
         mainCL = findViewById(R.id.splashConstraintLayout);
 
+
+
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

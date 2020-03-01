@@ -8,20 +8,29 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.valeron.wtwapp.CheckAuthActivity;
+import com.valeron.wtwapp.MainActivity;
 import com.valeron.wtwapp.network.HttpRequestSender;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserAuthenticator{
-    public static final String API_HOST = "https://api.themoviedb.org/3";
-    public static final String API_KEY = "api_key=80238c20c7cf130b707b5e596c35aac2";
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
+import static com.valeron.wtwapp.network.api.ApiConst.*;
+
+public class UserAuthenticator{
     private Context mContext;
     private HttpRequestSender requestSender;
     private Handler responseHandler;
     private String requestToken = "none";
     private String sessionId;
+    private OnLogged mOnLogged;
     private static UserAuthenticator instance;
 
     public static UserAuthenticator getInstance(Context context, HttpRequestSender sender){
@@ -42,12 +51,16 @@ public class UserAuthenticator{
 
         requestSender.sendRequest("GET",url).setOnRequestReadyEvent(new HttpRequestSender.OnRequestReadyEvent() {
             @Override
-            public void ready(String response, Exception e) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
+            public void ready(byte[] response, Exception e) {
+                try (ByteArrayInputStream stream =new ByteArrayInputStream(response)){
+
+                    JSONObject jsonObject = new JSONObject(IOUtils.toString(stream));
                     requestToken = jsonObject.getString("request_token");
                     askAuthPermission(requestToken);
                 } catch (JSONException ex) {
+                    //TODO: handling exception
+                    ex.printStackTrace();
+                } catch (IOException ex) {
                     //TODO: handling exception
                     ex.printStackTrace();
                 }
@@ -63,33 +76,46 @@ public class UserAuthenticator{
         mContext.startActivity(browserIntent);
     }
 
-    public boolean checkAuthAsync(){
+    public UserAuthenticator checkAuthAsync(){
         String url = API_HOST + "/authentication/session/new?" + API_KEY;
         final boolean[] isLoggedIn = {false};
         requestSender.sendRequest("POST", url, "request_token=" + this.requestToken)
             .setOnRequestReadyEvent(new HttpRequestSender.OnRequestReadyEvent() {
                 @Override
-                public void ready(String response, Exception e) {
-                    try {
-                        Log.d("HTTP_REQUEST", response);
-                        JSONObject jsonObject = new JSONObject(response);
-                        if(response.contains("success")){
+                public void ready(byte[] response, Exception e) {
+                    try(ByteArrayInputStream stream =new ByteArrayInputStream(response)) {
+                        String responseStr = IOUtils.toString(stream);
+                        Log.d("HTTP_REQUEST", responseStr);
+                        JSONObject jsonObject = new JSONObject(responseStr);
+                        if(responseStr.contains("success")){
+                            MovieBank.getInstance(mContext, requestSender);
                             Toast.makeText(mContext, "LoggedIn", Toast.LENGTH_SHORT).show();
                             UserAuthenticator.this.sessionId = jsonObject.getString("session_id");
-                            //TODO: sending intent to MainActivity
+                            if(mOnLogged != null)
+                                mOnLogged.logged();
+                            //sending intent to MainActivity
                         }else{
                             Toast.makeText(mContext, "unLoggedIn", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException ex) {
                         //TODO: handling exception
                         ex.printStackTrace();
+                    } catch (IOException ex) {
+                        //TODO: handling exception
+                        ex.printStackTrace();
                     }
                     isLoggedIn[0] = true;
                 }
             });
-        return true;
+        return this;
     }
 
+    public void setOnLoggedListener(OnLogged onLogged) {
+        mOnLogged = onLogged;
+    }
 
+    public interface OnLogged{
+        void logged();
+    }
 
 }
