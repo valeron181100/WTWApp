@@ -1,6 +1,7 @@
 package com.valeron.wtwapp.network.api;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.valeron.wtwapp.network.HttpRequestSender;
 
@@ -22,6 +23,8 @@ public class MovieBank {
     private ArrayList<Movie> mTheaterMovies;
     private HttpRequestSender mRequestSender;
     private onTheaterMoviesLoaded mOnTheaterMoviesLoaded;
+
+    private boolean isTheaterMoviesLoaded = false;
 
     private static MovieBank instance;
 
@@ -50,6 +53,7 @@ public class MovieBank {
                     for (int i = 0; i < array.length(); i++) {
                         mTheaterMovies.add(new Movie(array.getJSONObject(i)));
                     }
+                    isTheaterMoviesLoaded = true;
                     if(mOnTheaterMoviesLoaded != null){
                         mOnTheaterMoviesLoaded.loaded();
                     }
@@ -66,6 +70,10 @@ public class MovieBank {
 
     public ArrayList<Movie> getTheaterMovies() {
         return mTheaterMovies;
+    }
+
+    public boolean isTheaterMoviesLoaded() {
+        return isTheaterMoviesLoaded;
     }
 
     public void setOnTheaterMoviesLoaded(onTheaterMoviesLoaded onTheaterMoviesLoaded) {

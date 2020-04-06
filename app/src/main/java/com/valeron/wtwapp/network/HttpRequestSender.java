@@ -6,29 +6,14 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
-import android.util.Log;
 import android.util.Pair;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import androidx.annotation.NonNull;
@@ -49,6 +34,8 @@ public class HttpRequestSender extends HandlerThread implements Serializable {
     private Handler mRequestHandler;
     private Context mContext;
     private OkHttpClient client;
+
+    private boolean isQuit = false;
 
     private CopyOnWriteArrayList<HttpRequest> mEventList = new CopyOnWriteArrayList<>();
 
@@ -240,5 +227,12 @@ public class HttpRequestSender extends HandlerThread implements Serializable {
             this.event = event;
             HttpRequestSender.this.mEventList.add(this);
         }
+    }
+
+
+    public void clearQueue(){
+        mEventList.clear();
+        mRequestHandler.removeMessages(MESSAGE_DOWNLOAD_GET);
+        mRequestHandler.removeMessages(MESSAGE_DOWNLOAD_POST);
     }
 }

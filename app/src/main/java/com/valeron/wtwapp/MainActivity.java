@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = this.getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.mainFrame);
         if(fragment == null){
-            fragment = HomeFragment.newInstance(mRequestSender);
+            fragment = new HomeFragment();
         }
         fm.beginTransaction().replace(R.id.mainFrame, fragment).commit();
     }

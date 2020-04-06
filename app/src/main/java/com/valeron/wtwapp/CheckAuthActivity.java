@@ -39,6 +39,7 @@ public class CheckAuthActivity extends AppCompatActivity {
                         MovieBank.getInstance(CheckAuthActivity.this, CheckAuthActivity.this.mRequestSender).setOnTheaterMoviesLoaded(new MovieBank.onTheaterMoviesLoaded() {
                             @Override
                             public void loaded() {
+
                                 Intent intent = new Intent(CheckAuthActivity.this, MainActivity.class);
                                 startActivity(intent);
                             }

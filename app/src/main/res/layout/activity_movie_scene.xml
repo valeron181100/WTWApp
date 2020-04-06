@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MovieSceneActivity"
+    android:background="@color/Black">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/movieMainRL"
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/movie_btn_back"
+                android:layout_marginTop="30dp"
+                app:srcCompat="@drawable/ic_list"
+                android:scaleType="centerInside"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/movieCoverIV"
+                app:layout_constraintTop_toBottomOf="@+id/movieRateBar" />
+
+            <ImageView
+                android:id="@+id/movieCoverIV"
+                android:layout_width="150dp"
+                android:layout_height="225dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/test_film_cover_1" />
+
+            <ImageView
+                android:id="@+id/movieBackdropIV"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:alpha="0.3"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/test_film_cover_1" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="Оценка"
+                android:textColor="@color/White"
+                android:layout_marginTop="100dp"
+                android:layout_marginStart="10dp"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="@+id/movieRateBar"
+                app:layout_constraintLeft_toRightOf="@id/movieRateBar"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.valeron.wtwapp.views.TextProgressBar
+                android:id="@+id/movieRateBar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:layout_constraintLeft_toRightOf="@id/movieCoverIV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:max="100"
+                app:min="0"
+                app:progress="50"
+                android:layout_marginTop="100dp"
+                android:layout_marginStart="15dp"
+                app:progressBarThickness="5dp"
+                app:progressbarColor="@color/Red"
+                app:text="75%"
+                app:textSize="20sp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

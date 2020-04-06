@@ -1,6 +1,7 @@
 package com.valeron.wtwapp.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.valeron.wtwapp.MovieSceneActivity;
 import com.valeron.wtwapp.R;
 import com.valeron.wtwapp.models.ImageCache;
 import com.valeron.wtwapp.network.HttpRequestSender;
@@ -100,6 +102,9 @@ public class HomeMoviesAdapter extends RecyclerView.Adapter<HomeMoviesAdapter.Ho
         public void onClick(View v) {
             if(mMovie != null){
                 Toast.makeText(v.getContext(), String.valueOf(mMovie.getTitle()), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, MovieSceneActivity.class);
+                intent.putExtra(MovieSceneActivity.MOVIE_SCENE_INTENT_KEY, mMovie);
+                mContext.startActivity(intent);
             }
         }
     }

@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.method.PasswordTransformationMethod;
@@ -49,67 +50,74 @@ public class SplashActivity extends AppCompatActivity {
         mRegButton = findViewById(R.id.regSwipeButton);
         logoIV = findViewById(R.id.logoIV);
         mainCL = findViewById(R.id.splashConstraintLayout);
-
-
-
         Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                mainCL.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ConstraintSet constraintSet = new ConstraintSet();
-                        constraintSet.clone(SplashActivity.this, R.layout.activity_splash_anim_1);
-                        constraintSet.applyTo(mainCL);
-                        ChangeBounds transition = new ChangeBounds();
-                        transition.setInterpolator(new AnticipateInterpolator(1.0f));
-                        transition.setDuration(300);
-                        transition.addListener(new Transition.TransitionListener() {
-                            @Override
-                            public void onTransitionStart(Transition transition) {
+        if(!mAuthenticator.isLoggedIn()) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    mainCL.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ConstraintSet constraintSet = new ConstraintSet();
+                            constraintSet.clone(SplashActivity.this, R.layout.activity_splash_anim_1);
+                            constraintSet.applyTo(mainCL);
+                            ChangeBounds transition = new ChangeBounds();
+                            transition.setInterpolator(new AnticipateInterpolator(1.0f));
+                            transition.setDuration(300);
+                            transition.addListener(new Transition.TransitionListener() {
+                                @Override
+                                public void onTransitionStart(Transition transition) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onTransitionEnd(Transition transition) {
-                                ConstraintSet constraintSet = new ConstraintSet();
-                                constraintSet.clone(SplashActivity.this, R.layout.activity_splash_anim_2);
-                                constraintSet.applyTo(mainCL);
-                                transition = new ChangeBounds();
-                                transition.setInterpolator(new AnticipateInterpolator(1.0f));
-                                transition.setDuration(300);
-                                TransitionManager.beginDelayedTransition(mainCL, transition);
-                            }
+                                @Override
+                                public void onTransitionEnd(Transition transition) {
+                                    ConstraintSet constraintSet = new ConstraintSet();
+                                    constraintSet.clone(SplashActivity.this, R.layout.activity_splash_anim_2);
+                                    constraintSet.applyTo(mainCL);
+                                    transition = new ChangeBounds();
+                                    transition.setInterpolator(new AnticipateInterpolator(1.0f));
+                                    transition.setDuration(300);
+                                    TransitionManager.beginDelayedTransition(mainCL, transition);
+                                }
 
-                            @Override
-                            public void onTransitionCancel(Transition transition) {
+                                @Override
+                                public void onTransitionCancel(Transition transition) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onTransitionPause(Transition transition) {
+                                @Override
+                                public void onTransitionPause(Transition transition) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onTransitionResume(Transition transition) {
+                                @Override
+                                public void onTransitionResume(Transition transition) {
 
-                            }
-                        });
-                        TransitionManager.beginDelayedTransition(mainCL, transition);
-                    }
-                });
-            }
-        }, 500);
+                                }
+                            });
+                            TransitionManager.beginDelayedTransition(mainCL, transition);
+                        }
+                    });
+                }
+            }, 500);
 
-        mLoginButton.addOnSwipedListener(new SwipeButton.OnSwipedListener() {
-            @Override
-            public void swiped() {
-                mAuthenticator.sendAuthRequestAsync();
-            }
-        });
-
+            mLoginButton.addOnSwipedListener(new SwipeButton.OnSwipedListener() {
+                @Override
+                public void swiped() {
+                    mAuthenticator.sendAuthRequestAsync();
+                }
+            });
+        }
+        else{
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }, 500);
+        }
 
     }
 }

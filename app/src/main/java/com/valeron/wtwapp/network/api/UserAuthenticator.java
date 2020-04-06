@@ -2,6 +2,7 @@ package com.valeron.wtwapp.network.api;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
@@ -44,6 +45,8 @@ public class UserAuthenticator{
         mContext = context;
         responseHandler = new Handler();
         requestSender = sender;
+        SharedPreferences preferences = mContext.getSharedPreferences(APP_PREFFERENCES_NAME, Context.MODE_PRIVATE);
+        sessionId = preferences.getString(API_SESSION_ID_KEY, null);
     }
 
     public void sendAuthRequestAsync(){
@@ -91,6 +94,12 @@ public class UserAuthenticator{
                             MovieBank.getInstance(mContext, requestSender);
                             Toast.makeText(mContext, "LoggedIn", Toast.LENGTH_SHORT).show();
                             UserAuthenticator.this.sessionId = jsonObject.getString("session_id");
+
+                            //Saving sessionId in memory
+
+                            mContext.getSharedPreferences(APP_PREFFERENCES_NAME, Context.MODE_PRIVATE).edit()
+                                    .putString(API_SESSION_ID_KEY, UserAuthenticator.this.sessionId).apply();
+
                             if(mOnLogged != null)
                                 mOnLogged.logged();
                             //sending intent to MainActivity
@@ -108,6 +117,18 @@ public class UserAuthenticator{
                 }
             });
         return this;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public boolean isLoggedIn(){
+        return sessionId != null;
     }
 
     public void setOnLoggedListener(OnLogged onLogged) {
